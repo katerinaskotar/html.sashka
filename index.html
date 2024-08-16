@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sasha kakashka</title>
+    <style>
+        #running-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 1s ease;
+        }
+
+        #running-text.running {
+            animation: runAway 1s forwards, returnToStart 1s forwards 1s;
+        }
+
+        @keyframes runAway {
+            0% { transform: translate(-50%, -50%); }
+            50% { transform: translate(calc(100vw - 100%), calc(0%)); }
+            100% { transform: translate(calc(100vw - 100%), calc(100vh - 100%)); }
+        }
+
+        @keyframes returnToStart {
+            0% { transform: translate(calc(100vw - 100%), calc(100vh - 100%)); }
+            100% { transform: translate(-50%, -50%); }
+        }
+    </style>
+</head>
+<body>
+    <div id="running-text">Sashka kakashka</div>
+    <script>
+        document.getElementById('running-text').addEventListener('click', function() {
+            const element = this;
+            element.classList.add('running');
+            // Reset animation class after animation ends
+            element.addEventListener('animationend', function() {
+                element.classList.remove('running');
+                element.style.transform = 'translate(-50%, -50%)'; // Reset position
+            }, { once: true }); // Ensure this only runs once
+        });
+    </script>
+</body>
+</html>
